@@ -1,2 +1,3 @@
 TempAndGarbage
 *.exe
+.vscode/*
