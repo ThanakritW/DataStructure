@@ -17,7 +17,10 @@ bool CP::vector<T>::operator<(const CP::vector<T> &other) const
       return false;
     }
   }
+  if (mSize < other.size())
+    return true;
   return false;
 }
 
 #endif
+
