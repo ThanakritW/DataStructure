@@ -11,6 +11,9 @@ template <typename T>
 class list
 {
   protected:
+    //debug counter
+    int ic,ec,ac,ndc,ncc;
+
     class node {
       friend class list;
       public:
@@ -70,15 +73,19 @@ class list
     node *mHeader; // pointer to a header node
     size_t mSize;
 
+    void init_counter() {
+      ic = ec = ac = ncc = ndc = 0;
+    }
+
 
   public:
     //-------------- constructor & copy operator ----------
 
     // copy constructor
-    list(const list<T>& a ) :
+    list(list<T>& a) :
       mHeader( new node() ), mSize( 0 ) {
-      for (auto &x : *this) {
-        push_back(x);
+      for (iterator it = a.begin();it != a.end();it++) {
+        push_back(*it);
       }
     }
 
@@ -162,18 +169,19 @@ class list
       while (mSize > 0) erase(begin());
     }
 
+
     void print() {
-      std::cout << " Size = " << mSize << std::endl;
-      std::cout << " Header address = " << (mHeader) << " (prev = " << mHeader->prev << " next = " << mHeader->next << ")" << std::endl;
+      std::cout << "Printing..." << std::endl << "Size = " << mSize << std::endl;
+      std::cout << "Header address = " << (mHeader) << " (prev = " << mHeader->prev << " next = " << mHeader->next << ")" << std::endl;
       int i = 0;
       iterator before;
       for (iterator it = begin();it!=end();before = it, it++,i++) {
         std::cout << "Node " << i << ": " << *it;
-        std::cout << " (prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next << ")" <<  std:: endl;
+        std::cout << " Pointer: prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next <<  std:: endl;
       }
     }
 
-    CP::list<T> split(iterator it,size_t pos);
+    void remove_all(const T& value);
 
 };
 
